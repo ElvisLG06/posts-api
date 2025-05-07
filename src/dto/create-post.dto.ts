@@ -2,10 +2,6 @@ import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreatePostDto {
 
-    @IsNotEmpty()
-    @IsNumber()
-    seller_id: number; 
-
     @IsString()
     @IsNotEmpty()
     title: string;
@@ -28,6 +24,11 @@ export class CreatePostDto {
     @IsNotEmpty()
     @IsArray()
     images: string[];
+
+
+    @IsNotEmpty()
+    @IsString()
+    seller_id: string; 
 
 }
     

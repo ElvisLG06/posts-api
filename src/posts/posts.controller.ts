@@ -17,7 +17,15 @@ export class PostsController {
         if (!post) {
             throw new NotFoundException("Post not found");
         }
-        return post;
+
+        const result = post.toObject ? post.toObject() : { ...post };
+
+        if (result.is_anonymous) {
+            result.seller_id = 'anonymous';
+        }
+
+        return result;
+
     }
 
     @Post()

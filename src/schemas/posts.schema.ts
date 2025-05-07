@@ -58,7 +58,7 @@ export class Posts {
     @Prop({
         required: true,
     })
-    seller_id: number; // id del vendedor
+    seller_id: string; // id del vendedor
 
     @Prop({
         min: 0,
