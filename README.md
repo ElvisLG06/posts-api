@@ -85,6 +85,7 @@ A continuación se describen cada uno de los endpoints disponibles.
     "is_anonymous": true,
     "seller_id": "anonymous",      // o el ID real si eres el autor
     "stars_amount": 3,
+    "ratings_count": 2,
     "createdAt": "...",
     "updatedAt": "..."
   }
@@ -122,6 +123,7 @@ A continuación se describen cada uno de los endpoints disponibles.
   "images": ["url1","url2"],
   "is_anonymous": true,         // por defecto false
   "stars_amount": 0,            // inicia en 0 y luego se ira actualizando
+  "ratings_count": 3,           // cantidada de valoraciones que tiene el post
   "seller_id": "usuario123",    // tomado del JWT
   "is_deleted": false,          // por defecto false
   "is_archived": false,         // por defecto false
@@ -209,6 +211,7 @@ A continuación se describen cada uno de los endpoints disponibles.
     "is_deleted": false,
     "seller_id": "usuario123",
     "stars_amount": 5,
+    "ratings_count": 3,
     "createdAt": "2025-05-09T12:00:00.000Z",
     "updatedAt": "2025-05-09T12:10:00.000Z"  
     }

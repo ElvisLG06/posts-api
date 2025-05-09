@@ -835,7 +835,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://localhost:3000/posts/?page=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -863,17 +863,16 @@
 						},
 						{
 							"key": "tag",
-							"value": null,
+							"value": "",
 							"disabled": true
 						},
 						{
 							"key": "page",
-							"value": null,
-							"disabled": true
+							"value": "2"
 						},
 						{
 							"key": "limit",
-							"value": null,
+							"value": "",
 							"disabled": true
 						}
 					]
@@ -882,14 +881,14 @@
 			"response": []
 		},
 		{
-			"name": "With Query - Seller_id = 1 Copy",
+			"name": "With Query - Seller_id = 2",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{JWT Principal}}",
+							"value": "{{JWT Adicional}}",
 							"type": "string"
 						}
 					]
