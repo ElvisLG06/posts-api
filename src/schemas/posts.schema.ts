@@ -45,7 +45,7 @@ export class Posts {
 
     @Prop({
         required: true,
-        default: false, 
+        default: false,
     })
     is_deleted: boolean; // si el post esta eliminado o no
 
@@ -63,8 +63,13 @@ export class Posts {
     @Prop({
         min: 0,
         max: 5,
+        required: true,
+        default: 0,
     })
     stars_amount: number; // cantidad de estrellas que tiene el post
+
+    @Prop({ required: true, default: 0 })
+    ratings_count: number;
 }
 
 export const PostsSchema = SchemaFactory.createForClass(Posts)

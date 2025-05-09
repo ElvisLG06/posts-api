@@ -2,8 +2,9 @@ import { Controller, Get, Post, Patch, Put, Body, Param, ConflictException, NotF
 import { PostsService } from './posts.service';
 import { CreatePostDto } from 'src/dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { UseGuards, Request, ForbiddenException } from '@nestjs/common';
+import { UseGuards, Request, ForbiddenException, Query, BadRequestException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { PostsQueryDto } from '../dto/posts-query.dto';
 
 
 @UseGuards(AuthGuard('jwt'))
@@ -17,9 +18,19 @@ export class PostsController {
         return this.postsService.findAllByOwner(req.user.profileId);
     }
 
+    @Get('profile/:profileId')
+    async findPublicByProfile(
+        @Param('profileId') profileId: string
+    ) {
+        return this.postsService.findPublicByProfile(profileId);
+    }
+
     @Get()
-    async findAll(@Request() req) {
-        return this.postsService.findAllForUser(req.user.profileId);
+    async findAll(
+        @Request() req,
+        @Query() query: PostsQueryDto,
+    ) {
+        return this.postsService.findWithFilters(query, req.user.profileId);
     }
 
 
@@ -212,12 +223,24 @@ export class PostsController {
         return this.postsService.markAsUnanonymous(id);
     }
 
-    @Get('profile/:profileId')
-    async findPublicByProfile(
-        @Param('profileId') profileId: string
+    @Patch('rate/:id')
+    async rate(
+        @Param('id') id: string,
+        @Body('rating') rating: number,
+        @Request() req
     ) {
-        return this.postsService.findPublicByProfile(profileId);
+        // Validar rango
+        if (rating < 0 || rating > 5) {
+            throw new BadRequestException('Rating debe estar entre 0 y 5');
+        }
+
+        // Delega en el servicio (que también impide autoría)
+        return this.postsService.ratePost(id, rating, req.user.profileId);
     }
+
+
+
+
 
 
 
