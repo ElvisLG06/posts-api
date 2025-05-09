@@ -1,37 +1,54 @@
-import { Controller, Get, Post, Delete, Put, Body, Param, ConflictException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Put, Body, Param, ConflictException, NotFoundException } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from 'src/dto/create-post.dto';
+import { UpdatePostDto } from '../dto/update-post.dto';
+import { UseGuards, Request, ForbiddenException } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+
+@UseGuards(AuthGuard('jwt'))
 @Controller('posts')
 export class PostsController {
     constructor(private postsService: PostsService) { }
 
-    @Get()
-    findAll() {
-        return this.postsService.findAll();
+    @Get('me')
+    async findMine(@Request() req) {
+        // req.user.profileId proviene de JwtStrategy.validate()
+        return this.postsService.findAllByOwner(req.user.profileId);
     }
 
-    @Get(":id")
-    async findOne(@Param("id") id: string) {
+    @Get()
+    async findAll(@Request() req) {
+        return this.postsService.findAllForUser(req.user.profileId);
+    }
+
+
+    @Get(':id')
+    async findOne(
+        @Param('id') id: string,
+        @Request() req
+    ) {
         const post = await this.postsService.findOne(id);
-        if (!post) {
-            throw new NotFoundException("Post not found");
-        }
+        if (!post) throw new NotFoundException();
 
         const result = post.toObject ? post.toObject() : { ...post };
 
-        if (result.is_anonymous) {
+        if (result.is_anonymous && req.user.profileId !== result.seller_id) {
             result.seller_id = 'anonymous';
         }
-
         return result;
-
     }
 
+
     @Post()
-    async create(@Body() body: CreatePostDto) {
+    async create(
+        @Body() body: CreatePostDto,
+        @Request() req) {
         try {
-            return await this.postsService.create(body);
+            return await this.postsService.create({
+                ...body,
+                seller_id: req.user.profileId,  // ← forzamos siempre el seller_id desde el token
+            });
         } catch (error) {
             if (error.code === 11000) {
                 throw new ConflictException("Post already exists");
@@ -40,23 +57,170 @@ export class PostsController {
         }
     }
 
-    @Delete(":id")
-    async delete(@Param("id") id: string) {
-        const post = await this.postsService.delete(id);
+    @Patch('delete/:id')
+    async softDelete(
+        @Param('id') id: string,
+        @Request() req
+    ) {
+        // 1) Buscar el post
+        const post = await this.postsService.findOne(id);
         if (!post) {
-            throw new NotFoundException("Post not found");
+            throw new NotFoundException('Post not found');
         }
-        return post;
+
+        // 2) Verificar que quien llama es el autor
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to delete this post.');
+        }
+
+        // 3) Revisar si ya estaba eliminado
+        if (post.is_deleted) {
+            return { message: 'This post is already deleted' };
+        }
+
+        // 4) Marcar como eliminado
+        return this.postsService.markAsDeleted(id);
     }
 
-    @Put(":id")
-    async update(@Param("id") id: string, @Body() body: never) {
-        const post = await this.postsService.update(id, body); 
+    @Patch('undelete/:id')
+    async undelete(
+        @Param('id') id: string,
+        @Request() req
+    ) {
+        // 1) Primero, buscar el post
+        const post = await this.postsService.findOne(id);
         if (!post) {
-            throw new NotFoundException("Post not found");
+            throw new NotFoundException('Post not found');
         }
-        return post;
+
+        // 2) Verificar que el requester es el autor
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to undelete this post.');
+        }
+
+        // 3) Si ya no estaba marcado como eliminado
+        if (!post.is_deleted) {
+            return { message: 'This post is undeleted' };
+        }
+
+        // 4) Llamar al servicio para revertir el borrado lógico
+        return this.postsService.markAsUndeleted(id);
     }
+
+
+    @Put(':id')
+    async update(
+        @Param('id') id: string,
+        @Body() body: UpdatePostDto,
+        @Request() req
+    ) {
+        // 1) Verificar que el post existe
+        const post = await this.postsService.findOne(id);
+        if (!post) {
+            throw new NotFoundException('Post not found');
+        }
+
+        // 2) Sólo el autor puede actualizar
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to update this post.');
+        }
+
+        // 3) Ejecutar la actualización
+        const updated = await this.postsService.update(id, body);
+        return updated;
+    }
+
+    @Patch('archive/:id')
+    async archive(
+        @Param('id') id: string,
+        @Request() req
+    ) {
+        // 1) Buscar el post
+        const post = await this.postsService.findOne(id);
+        if (!post) {
+            throw new NotFoundException('Post not found');
+        }
+
+        // 2) Verificar que quien llama es el autor
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to archive this post.');
+        }
+
+        // 3) Si ya estaba archivado
+        if (post.is_archived) {
+            return { message: 'This post is already archived' };
+        }
+
+        // 4) Marcar como archivado
+        return this.postsService.markAsArchived(id);
+    }
+
+    @Patch('unarchive/:id')
+    async unarchive(
+        @Param('id') id: string,
+        @Request() req,
+    ) {
+        const post = await this.postsService.findOne(id);
+        if (!post) throw new NotFoundException('Post not found');
+
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to unarchive this post.');
+        }
+
+        if (!post.is_archived) {
+            return { message: 'This post is unarchived' };
+        }
+
+        return this.postsService.markAsUnarchived(id);
+    }
+
+    @Patch('anonymous/:id')
+    async makeAnonymous(
+        @Param('id') id: string,
+        @Request() req,
+    ) {
+        const post = await this.postsService.findOne(id);
+        if (!post) throw new NotFoundException('Post not found');
+
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to anonymous this post.');
+        }
+
+        if (post.is_anonymous) {
+            return { message: 'This post is already anonymous' };
+        }
+
+        return this.postsService.markAsAnonymous(id);
+    }
+
+    @Patch('unanonymous/:id')
+    async makePublic(
+        @Param('id') id: string,
+        @Request() req,
+    ) {
+        const post = await this.postsService.findOne(id);
+        if (!post) throw new NotFoundException('Post not found');
+
+        if (post.seller_id !== req.user.profileId) {
+            throw new ForbiddenException('You do not have permission to unanonymous this post.');
+        }
+
+        if (!post.is_anonymous) {
+            return { message: 'This post is already not anonymous' };
+        }
+
+        return this.postsService.markAsUnanonymous(id);
+    }
+
+    @Get('profile/:profileId')
+    async findPublicByProfile(
+        @Param('profileId') profileId: string
+    ) {
+        return this.postsService.findPublicByProfile(profileId);
+    }
+
+
+
 
 
 }

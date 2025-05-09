@@ -3,6 +3,7 @@ import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostsSchema, Posts } from '../schemas/posts.schema';
+import { AuthModule } from '../auth/auth.module';
 
 
 @Module({
@@ -13,6 +14,7 @@ import { PostsSchema, Posts } from '../schemas/posts.schema';
         schema: PostsSchema 
       },
     ]),
+    AuthModule,
   ],
   controllers: [PostsController],
   providers: [PostsService]
