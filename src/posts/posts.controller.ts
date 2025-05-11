@@ -2,22 +2,24 @@ import { Controller, Get, Post, Patch, Put, Body, Param, ConflictException, NotF
 import { PostsService } from './posts.service';
 import { CreatePostDto } from 'src/dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { UseGuards, Request, ForbiddenException, Query, BadRequestException } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Request, ForbiddenException, Query, BadRequestException } from '@nestjs/common';
 import { PostsQueryDto } from '../dto/posts-query.dto';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
+@ApiTags('posts') // Categoriza los endpoints
 
-@UseGuards(AuthGuard('jwt'))
 @Controller('posts')
 export class PostsController {
     constructor(private postsService: PostsService) { }
 
+    @ApiOperation({ summary: 'Obtiene los posts del usuario actual' })
     @Get('me')
     async findMine(@Request() req) {
         // req.user.profileId proviene de JwtStrategy.validate()
         return this.postsService.findAllByOwner(req.user.profileId);
     }
 
+    @ApiOperation({ summary: 'Obtiene los posts públicos de un perfil por su ID' })
     @Get('profile/:profileId')
     async findPublicByProfile(
         @Param('profileId') profileId: string
@@ -25,6 +27,7 @@ export class PostsController {
         return this.postsService.findPublicByProfile(profileId);
     }
 
+    @ApiOperation({ summary: 'Obtiene todos los posts con filtros' })
     @Get()
     async findAll(
         @Request() req,
@@ -34,6 +37,7 @@ export class PostsController {
     }
 
 
+    @ApiOperation({ summary: 'Obtiene un post por su ID' })
     @Get(':id')
     async findOne(
         @Param('id') id: string,
@@ -50,7 +54,7 @@ export class PostsController {
         return result;
     }
 
-
+    @ApiOperation({ summary: 'Crea un nuevo post' })
     @Post()
     async create(
         @Body() body: CreatePostDto,
@@ -68,6 +72,7 @@ export class PostsController {
         }
     }
 
+    @ApiOperation({ summary: 'Elimina un post de forma lógica' })
     @Patch('delete/:id')
     async softDelete(
         @Param('id') id: string,
@@ -93,6 +98,7 @@ export class PostsController {
         return this.postsService.markAsDeleted(id);
     }
 
+    @ApiOperation({ summary: 'Restaura un post eliminado de forma lógica' })
     @Patch('undelete/:id')
     async undelete(
         @Param('id') id: string,
@@ -119,6 +125,7 @@ export class PostsController {
     }
 
 
+    @ApiOperation({ summary: 'Actualiza un post por su ID' })
     @Put(':id')
     async update(
         @Param('id') id: string,
@@ -141,6 +148,7 @@ export class PostsController {
         return updated;
     }
 
+    @ApiOperation({ summary: 'Archiva un post' })
     @Patch('archive/:id')
     async archive(
         @Param('id') id: string,
@@ -166,6 +174,7 @@ export class PostsController {
         return this.postsService.markAsArchived(id);
     }
 
+    @ApiOperation({ summary: 'Desarchiva un post' })
     @Patch('unarchive/:id')
     async unarchive(
         @Param('id') id: string,
@@ -185,6 +194,7 @@ export class PostsController {
         return this.postsService.markAsUnarchived(id);
     }
 
+    @ApiOperation({ summary: 'Hace un post anónimo' })
     @Patch('anonymous/:id')
     async makeAnonymous(
         @Param('id') id: string,
@@ -204,6 +214,7 @@ export class PostsController {
         return this.postsService.markAsAnonymous(id);
     }
 
+    @ApiOperation({ summary: 'Hace público un post anónimo' })
     @Patch('unanonymous/:id')
     async makePublic(
         @Param('id') id: string,
@@ -223,6 +234,7 @@ export class PostsController {
         return this.postsService.markAsUnanonymous(id);
     }
 
+    @ApiOperation({ summary: 'Califica un post' })
     @Patch('rate/:id')
     async rate(
         @Param('id') id: string,
