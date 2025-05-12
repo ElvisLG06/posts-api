@@ -13,9 +13,6 @@ RUN npm install
 # Copia todo el código al contenedor
 COPY . .
 
-# Copia el archivo .env al contenedor
-COPY .env ./
-
 # Compila el proyecto (si estás utilizando TypeScript)
 RUN npm run build
 
