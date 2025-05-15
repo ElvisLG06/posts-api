@@ -49,20 +49,19 @@
 			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\" : \"Treceavo post\",\r\n  \"description\" : \"descripcion13\",\r\n  \"tags\": [\"tags\", \"tags1\"],\r\n  \"price\" : 2000,\r\n  \"presentation_card_id\" : \"presentation_card_id\",\r\n  \"images\" : [\"url\"],\r\n  \"is_anonymous\": true\r\n}",
+					"raw": "{\r\n  \"title\" : \"Primer post en AWS\",\r\n  \"description\" : \"descripcion1\",\r\n  \"tags\": [\"tags\", \"tags1\"],\r\n  \"price\" : 2000,\r\n  \"presentation_card_id\" : \"presentation_card_id\",\r\n  \"images\" : [\"url\"],\r\n  \"is_anonymous\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,12 +69,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts",
+					"raw": "http://44.220.134.27:8001/posts",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts"
 					]
@@ -126,17 +128,16 @@
 			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"title\" : \"Onceavo post\",\r\n  \"description\" : \"descripcion11\",\r\n  \"tags\": [\"tags\", \"tags1\"],\r\n  \"price\" : 200,\r\n  \"presentation_card_id\" : \"presentation_card_id\",\r\n  \"images\" : [\"url\"],\r\n  \"is_anonymous\": true\r\n}",
@@ -147,12 +148,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts",
+					"raw": "http://44.220.134.27:8001/posts",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts"
 					]
@@ -164,26 +168,34 @@
 			"name": "Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts",
+					"raw": "http://44.220.134.27:8001/posts?page=1",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -193,26 +205,35 @@
 			"name": "Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts",
+					"raw": "http://44.220.134.27:8001/posts",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -222,24 +243,26 @@
 			"name": "by post_id - Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/681d4dd70f3700ffc7893d7f",
+					"raw": "http://44.220.134.27:8001/posts/681d4dd70f3700ffc7893d7f",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"681d4dd70f3700ffc7893d7f"
@@ -252,24 +275,26 @@
 			"name": "by post_id - Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/681d4dd70f3700ffc7893d7f",
+					"raw": "http://44.220.134.27:8001/posts/681d4dd70f3700ffc7893d7f",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"681d4dd70f3700ffc7893d7f"
@@ -282,24 +307,26 @@
 			"name": "Delete Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/delete/681d25d96aa285e3c47b2acf",
+					"raw": "http://44.220.134.27:8001/posts/delete/681d25d96aa285e3c47b2acf",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"delete",
@@ -313,24 +340,26 @@
 			"name": "Delete Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/delete/681d25d96aa285e3c47b2acf",
+					"raw": "http://44.220.134.27:8001/posts/delete/681d25d96aa285e3c47b2acf",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"delete",
@@ -344,24 +373,26 @@
 			"name": "Undelete Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/undelete/681d4dd70f3700ffc7893d7f",
+					"raw": "http://44.220.134.27:8001/posts/undelete/681d4dd70f3700ffc7893d7f",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"undelete",
@@ -375,24 +406,26 @@
 			"name": "Undelete Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/undelete/681d4dd70f3700ffc7893d7f",
+					"raw": "http://44.220.134.27:8001/posts/undelete/681d4dd70f3700ffc7893d7f",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"undelete",
@@ -406,17 +439,16 @@
 			"name": "Update post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"price\": 1500\r\n}\r\n",
@@ -427,12 +459,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/681d248f6aa285e3c47b2acd",
+					"raw": "http://44.220.134.27:8001/posts/681d248f6aa285e3c47b2acd",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"681d248f6aa285e3c47b2acd"
@@ -445,17 +480,16 @@
 			"name": "Update post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"title\": \"Tercer post actualizado\",\r\n  \"description\": \"Descripción3 actualizado\"\r\n}\r\n",
@@ -466,12 +500,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/681d248f6aa285e3c47b2acd",
+					"raw": "http://44.220.134.27:8001/posts/681d248f6aa285e3c47b2acd",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"681d248f6aa285e3c47b2acd"
@@ -484,24 +521,26 @@
 			"name": "Archive post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/archive/681d4dc00f3700ffc7893d7b",
+					"raw": "http://44.220.134.27:8001/posts/archive/681d4dc00f3700ffc7893d7b",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"archive",
@@ -515,17 +554,16 @@
 			"name": "Archive post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:3000/posts/archive/681d4dc00f3700ffc7893d7b",
 					"protocol": "http",
@@ -546,24 +584,26 @@
 			"name": "Unarchive post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/unarchive/681d4dc00f3700ffc7893d7b",
+					"raw": "http://44.220.134.27:8001/posts/unarchive/681d4dc00f3700ffc7893d7b",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"unarchive",
@@ -577,24 +617,26 @@
 			"name": "Unarchive post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/unarchive/681d4dc00f3700ffc7893d7b",
+					"raw": "http://44.220.134.27:8001/posts/unarchive/681d4dc00f3700ffc7893d7b",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"unarchive",
@@ -608,24 +650,26 @@
 			"name": "Anonymous post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/anonymous/681d4dc00f3700ffc7893d7b",
+					"raw": "http://44.220.134.27:8001/posts/anonymous/681d4dc00f3700ffc7893d7b",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"anonymous",
@@ -639,24 +683,26 @@
 			"name": "Anonymous post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/anonymous/681d4daf0f3700ffc7893d79",
+					"raw": "http://44.220.134.27:8001/posts/anonymous/681d4daf0f3700ffc7893d79",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"anonymous",
@@ -670,24 +716,26 @@
 			"name": "Unanonymous post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/unanonymous/681d4de80f3700ffc7893d81",
+					"raw": "http://44.220.134.27:8001/posts/unanonymous/681d4de80f3700ffc7893d81",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"unanonymous",
@@ -701,24 +749,26 @@
 			"name": "Unanonymous post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/unanonymous/681d4de80f3700ffc7893d81",
+					"raw": "http://44.220.134.27:8001/posts/unanonymous/681d4de80f3700ffc7893d81",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"unanonymous",
@@ -732,24 +782,26 @@
 			"name": "Me post Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/me",
+					"raw": "http://44.220.134.27:8001/posts/me",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"me"
@@ -762,24 +814,26 @@
 			"name": "Me post Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/me",
+					"raw": "http://44.220.134.27:8001/posts/me",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"me"
@@ -792,24 +846,26 @@
 			"name": "Posts by profileId",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/profile/2",
+					"raw": "http://44.220.134.27:8001/posts/profile/2",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"profile",
@@ -823,24 +879,26 @@
 			"name": "With Query - Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/?page=2",
+					"raw": "http://44.220.134.27:8001/posts/?page=2",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						""
@@ -884,24 +942,26 @@
 			"name": "With Query - Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/posts/",
+					"raw": "http://44.220.134.27:8001/posts/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						""
@@ -946,17 +1006,16 @@
 			"name": "Update RateStars - Seller_id = 1",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Principal}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"rating\": 5\r\n}",
@@ -967,12 +1026,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/rate/681dba859cb2736bec8f6e1e",
+					"raw": "http://44.220.134.27:8001/posts/rate/681dba859cb2736bec8f6e1e",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"rate",
@@ -1018,17 +1080,16 @@
 			"name": "Update RateStars - Seller_id = 2",
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{JWT Adicional}}",
-							"type": "string"
-						}
-					]
+					"type": "noauth"
 				},
 				"method": "PATCH",
-				"header": [],
+				"header": [
+					{
+						"key": "X-Profile-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"rating\": 8\r\n}   ",
@@ -1039,12 +1100,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/posts/rate/681dba859cb2736bec8f6e1e",
+					"raw": "http://44.220.134.27:8001/posts/rate/681dba859cb2736bec8f6e1e",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"44",
+						"220",
+						"134",
+						"27"
 					],
-					"port": "3000",
+					"port": "8001",
 					"path": [
 						"posts",
 						"rate",

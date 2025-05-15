@@ -1,4 +1,5 @@
 import { IsArray, IsNotEmpty, IsNumber, IsString, IsBoolean } from 'class-validator';
+import { Type, Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePostDto {
@@ -19,6 +20,7 @@ export class CreatePostDto {
 
     @ApiProperty({ description: 'Precio del post' })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     price: number;	
 
@@ -27,13 +29,9 @@ export class CreatePostDto {
     @IsNotEmpty()
     presentation_card_id: string;
 
-    @ApiProperty({ description: 'Imágenes asociadas al post' })
-    @IsNotEmpty()
-    @IsArray()
-    images: string[]; 
-
     @ApiProperty({ description: 'Anonimato del post' })
     @IsBoolean()
+    @Transform(({ value }) => value === 'true' || value === true)
     is_anonymous?: boolean;
 
 }

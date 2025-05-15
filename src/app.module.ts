@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PostsModule } from './posts/posts.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProfileInterceptor } from './common/profile.interceptor'; // Importar el interceptor
 import { APP_INTERCEPTOR } from '@nestjs/core'; 
+
+import { PostsModule } from './posts/posts.module';
+import { ProfileInterceptor } from './common/profile.interceptor'; // Importar el interceptor
+import { S3Service } from './common/s3.service';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: ProfileInterceptor, // Registrar el interceptor globalmente
     },
+    S3Service, 
   ],
 })
 export class AppModule { }

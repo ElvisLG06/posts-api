@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Patch, Put, Body, Param, ConflictException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Put, Body, Param, ConflictException, NotFoundException, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from 'src/dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { Request, ForbiddenException, Query, BadRequestException } from '@nestjs/common';
 import { PostsQueryDto } from '../dto/posts-query.dto';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('posts') // Categoriza los endpoints
 
@@ -55,15 +56,31 @@ export class PostsController {
     }
 
     @ApiOperation({ summary: 'Crea un nuevo post' })
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                title: { type: 'string' },
+                description: { type: 'string' },
+                tags: { type: 'array', items: { type: 'string' } },
+                price: { type: 'number' },
+                presentation_card_id: { type: 'string' },
+                images: {
+                    type: 'array',
+                    items: { type: 'string', format: 'binary' },
+                },
+            },
+        },
+    })
+    @UseInterceptors(FilesInterceptor('images'))
     @Post()
     async create(
+        @UploadedFiles() images: Express.Multer.File[],
         @Body() body: CreatePostDto,
         @Request() req) {
         try {
-            return await this.postsService.create({
-                ...body,
-                seller_id: req.user.profileId,  // ← forzamos siempre el seller_id desde el token
-            });
+            return await this.postsService.create(body, req.user.profileId, images);
         } catch (error) {
             if (error.code === 11000) {
                 throw new ConflictException("Post already exists");
@@ -126,9 +143,12 @@ export class PostsController {
 
 
     @ApiOperation({ summary: 'Actualiza un post por su ID' })
+    @ApiConsumes('multipart/form-data')
+    @UseInterceptors(FilesInterceptor('images'))
     @Put(':id')
     async update(
         @Param('id') id: string,
+        @UploadedFiles() images: Express.Multer.File[],
         @Body() body: UpdatePostDto,
         @Request() req
     ) {
@@ -144,7 +164,7 @@ export class PostsController {
         }
 
         // 3) Ejecutar la actualización
-        const updated = await this.postsService.update(id, body);
+        const updated = await this.postsService.update(id, body, req.user.profileId, images);
         return updated;
     }
 

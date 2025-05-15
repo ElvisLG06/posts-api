@@ -3,6 +3,8 @@ import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostsSchema, Posts } from '../schemas/posts.schema';
+import { S3Service } from '../common/s3.service'; // Ajusta la ruta según donde esté el servicio
+
 
 
 @Module({
@@ -15,6 +17,6 @@ import { PostsSchema, Posts } from '../schemas/posts.schema';
     ]),
   ],
   controllers: [PostsController],
-  providers: [PostsService]
+  providers: [PostsService, S3Service]
 })
 export class PostsModule {}

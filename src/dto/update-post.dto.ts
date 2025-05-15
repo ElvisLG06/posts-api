@@ -1,4 +1,5 @@
 import { IsArray, IsOptional, IsString, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdatePostDto {
@@ -15,10 +16,12 @@ export class UpdatePostDto {
     @ApiProperty()
     @IsOptional()
     @IsArray()
+    @IsString({ each: true })
     tags?: string[];
 
     @ApiProperty()
     @IsOptional()
+    @Type(() => Number)
     @IsNumber()
     price?: number;	
 
@@ -26,11 +29,6 @@ export class UpdatePostDto {
     @IsOptional()
     @IsString()
     presentation_card_id?: string;
-
-    @ApiProperty()
-    @IsOptional()
-    @IsArray()
-    images?: string[];
 
 
 }

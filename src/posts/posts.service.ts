@@ -5,12 +5,14 @@ import { Model, FilterQuery } from 'mongoose';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { PostsQueryDto } from '../dto/posts-query.dto';
-
-type CreatePostWithSeller = CreatePostDto & { seller_id: string };
+import { S3Service } from '../common/s3.service';
 
 @Injectable()
 export class PostsService {
-    constructor(@InjectModel(Posts.name) private postsModel: Model<Posts>) { }
+    constructor(
+        @InjectModel(Posts.name) private postsModel: Model<Posts>,
+        private s3Service: S3Service,
+    ) { }
 
     async findAllForUser(profileId: string) {
         // 1) Traer todos los posts como objetos planos
@@ -26,15 +28,30 @@ export class PostsService {
         }));
     }
 
-    async create(createPosts: CreatePostWithSeller) {
-        // Creamos el post incluyendo defaults explícitos
+
+
+    async create(createPostDto: CreatePostDto, profileId: string, images: Express.Multer.File[]) {
+        // 1. Subir imágenes a S3 y obtener URLs
+        const uploadedUrls = await Promise.all(
+            images.map((file, idx) => this.s3Service.uploadFile(file, `${profileId}-${idx}`))
+        );
+
+        // 2. Crear el post con las URLs de las imágenes y seller_id forzado
         const newPost = new this.postsModel({
-            ...createPosts,
-            stars_amount: 0,      // promedio inicial
-            ratings_count: 0,     // contador de reseñas
+            ...createPostDto,
+            seller_id: profileId,
+            images: uploadedUrls,
+            stars_amount: 0,
+            ratings_count: 0,
         });
+
+        // 3. Guardar en MongoDB
         return newPost.save();
     }
+
+
+
+
 
     async findOne(id: string) {
         return this.postsModel.findById(id);
@@ -52,9 +69,42 @@ export class PostsService {
         return post.save();   // devuelve el documento con is_deleted: true
     }
 
-    async update(id: string, posts: UpdatePostDto) {
-        return this.postsModel.findByIdAndUpdate(id, posts, { new: true });
+
+
+
+
+    // Método update adaptado
+    async update(
+        id: string,
+        updatePostDto: UpdatePostDto,
+        profileId: string,
+        images: Express.Multer.File[],
+    ) {
+        const post = await this.postsModel.findById(id);
+        if (!post) throw new NotFoundException('Post not found');
+        if (post.seller_id !== profileId) throw new ForbiddenException('No permission to update this post');
+
+        // Si hay imágenes nuevas, eliminar las viejas de S3 y subir las nuevas
+        let uploadedUrls = post.images; // si no hay nuevas, mantener las viejas
+
+        if (images && images.length > 0) {
+            // Eliminar imágenes viejas de S3
+            await Promise.all(post.images.map(url => this.s3Service.deleteFile(url)));
+
+            // Subir nuevas imágenes a S3
+            uploadedUrls = await Promise.all(
+                images.map((file, idx) => this.s3Service.uploadFile(file, `${profileId}-${idx}`))
+            );
+        }
+
+        // Actualizar el post con los nuevos datos y las URLs nuevas
+        Object.assign(post, updatePostDto, { images: uploadedUrls });
+        return post.save();
     }
+
+
+
+
 
     async markAsUndeleted(id: string) {
         // 1) Asegurar que el post existe
