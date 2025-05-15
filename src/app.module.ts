@@ -11,7 +11,7 @@ import { S3Service } from './common/s3.service';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(
-      process.env.MONGODB_URI ?? 'mongodb://localhost:27017/postsdb'
+      process.env.MONGODB_URI ?? 'mongodb://172.31.26.161:27017/postsdb'
     ),
     PostsModule
   ],

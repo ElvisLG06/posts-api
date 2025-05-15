@@ -45,6 +45,16 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -60,26 +70,69 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"title\" : \"Primer post en AWS\",\r\n  \"description\" : \"descripcion1\",\r\n  \"tags\": [\"tags\", \"tags1\"],\r\n  \"price\" : 2000,\r\n  \"presentation_card_id\" : \"presentation_card_id\",\r\n  \"images\" : [\"url\"],\r\n  \"is_anonymous\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Post en AWS con imagenes en S3 4 id=1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "descripcionS3",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag1",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag2",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag3",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "500",
+							"type": "text"
+						},
+						{
+							"key": "presentation_card_id",
+							"value": "abc123",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/honda.jpg"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/Captura de pantalla 2025-05-01 132957.png"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/MN3.jpg"
+						},
+						{
+							"key": "is_anonymous",
+							"value": "true",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts",
-					"protocol": "http",
+					"raw": "{{URL}}posts",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
-					],
-					"port": "8001",
-					"path": [
-						"posts"
+						"{{URL}}posts"
 					]
 				}
 			},
@@ -124,6 +177,13 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -139,26 +199,59 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"title\" : \"Onceavo post\",\r\n  \"description\" : \"descripcion11\",\r\n  \"tags\": [\"tags\", \"tags1\"],\r\n  \"price\" : 200,\r\n  \"presentation_card_id\" : \"presentation_card_id\",\r\n  \"images\" : [\"url\"],\r\n  \"is_anonymous\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Post en AWS con imagenes en S3 id=2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "descripcionS3",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag1",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag2",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "700",
+							"type": "text"
+						},
+						{
+							"key": "presentation_card_id",
+							"value": "qwe123",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/sjw.jpg"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/minecraft-server-icon-16.png"
+						},
+						{
+							"key": "is_anonymous",
+							"value": "false",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts",
-					"protocol": "http",
+					"raw": "{{URL}}posts",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
-					],
-					"port": "8001",
-					"path": [
-						"posts"
+						"{{URL}}posts"
 					]
 				}
 			},
@@ -179,17 +272,9 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts?page=1",
-					"protocol": "http",
+					"raw": "{{URL}}posts?page=1",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
-					],
-					"port": "8001",
-					"path": [
-						"posts"
+						"{{URL}}posts"
 					],
 					"query": [
 						{
@@ -216,17 +301,9 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts",
-					"protocol": "http",
+					"raw": "{{URL}}posts",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
-					],
-					"port": "8001",
-					"path": [
-						"posts"
+						"{{URL}}posts"
 					],
 					"query": [
 						{
@@ -254,17 +331,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/681d4dd70f3700ffc7893d7f",
-					"protocol": "http",
+					"raw": "{{URL}}posts/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"681d4dd70f3700ffc7893d7f"
 					]
 				}
@@ -286,17 +357,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/681d4dd70f3700ffc7893d7f",
-					"protocol": "http",
+					"raw": "{{URL}}posts/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"681d4dd70f3700ffc7893d7f"
 					]
 				}
@@ -318,19 +383,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/delete/681d25d96aa285e3c47b2acf",
-					"protocol": "http",
+					"raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"delete",
-						"681d25d96aa285e3c47b2acf"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -351,19 +410,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/delete/681d25d96aa285e3c47b2acf",
-					"protocol": "http",
+					"raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"delete",
-						"681d25d96aa285e3c47b2acf"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -384,17 +437,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/undelete/681d4dd70f3700ffc7893d7f",
-					"protocol": "http",
+					"raw": "{{URL}}posts/undelete/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"undelete",
 						"681d4dd70f3700ffc7893d7f"
 					]
@@ -417,18 +464,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/undelete/681d4dd70f3700ffc7893d7f",
-					"protocol": "http",
+					"raw": "{{URL}}posts/delete/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
-						"undelete",
+						"delete",
 						"681d4dd70f3700ffc7893d7f"
 					]
 				}
@@ -450,27 +491,57 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"price\": 1500\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Post en AWS con imagenes en S3 Actualizado",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Descripcion actualizado",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag 11",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag 12",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1000",
+							"type": "text"
+						},
+						{
+							"key": "presentation_card_id",
+							"value": "presentacion actualizada",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/Ghibli Inspired Wallapaper.jpg"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/luffy.jpg"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/681d248f6aa285e3c47b2acd",
-					"protocol": "http",
+					"raw": "{{URL}}posts/68263b72434f30a3145e04c6",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
-						"681d248f6aa285e3c47b2acd"
+						"68263b72434f30a3145e04c6"
 					]
 				}
 			},
@@ -491,27 +562,57 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"Tercer post actualizado\",\r\n  \"description\": \"Descripción3 actualizado\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Post en AWS con imagenes en S3 Actualizado",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Descripcion actualizado",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag 11",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "tag12",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1000",
+							"type": "text"
+						},
+						{
+							"key": "presentation_card_id",
+							"value": "presentacion actualizada",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/Captura de pantalla 2025-04-20 023045.png"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/C:/Users/User/Downloads/209-2098816_icones-para-servidores-de-minecraft.png"
 						}
-					}
+					]
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/681d248f6aa285e3c47b2acd",
-					"protocol": "http",
+					"raw": "{{URL}}posts/68263b72434f30a3145e04c6",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
-						"681d248f6aa285e3c47b2acd"
+						"68263b72434f30a3145e04c6"
 					]
 				}
 			},
@@ -532,19 +633,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/archive/681d4dc00f3700ffc7893d7b",
-					"protocol": "http",
+					"raw": "{{URL}}posts/archive/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"archive",
-						"681d4dc00f3700ffc7893d7b"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -565,16 +660,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/posts/archive/681d4dc00f3700ffc7893d7b",
-					"protocol": "http",
+					"raw": "{{URL}}posts/archive/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"localhost"
+						"{{URL}}posts"
 					],
-					"port": "3000",
 					"path": [
-						"posts",
 						"archive",
-						"681d4dc00f3700ffc7893d7b"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -595,19 +687,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/unarchive/681d4dc00f3700ffc7893d7b",
-					"protocol": "http",
+					"raw": "{{URL}}posts/unarchive/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"unarchive",
-						"681d4dc00f3700ffc7893d7b"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -628,19 +714,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/unarchive/681d4dc00f3700ffc7893d7b",
-					"protocol": "http",
+					"raw": "{{URL}}posts/unarchive/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"unarchive",
-						"681d4dc00f3700ffc7893d7b"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -661,19 +741,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/anonymous/681d4dc00f3700ffc7893d7b",
-					"protocol": "http",
+					"raw": "{{URL}}posts/anonymous/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"anonymous",
-						"681d4dc00f3700ffc7893d7b"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -694,19 +768,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/anonymous/681d4daf0f3700ffc7893d79",
-					"protocol": "http",
+					"raw": "{{URL}}posts/anonymous/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"anonymous",
-						"681d4daf0f3700ffc7893d79"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -727,19 +795,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/unanonymous/681d4de80f3700ffc7893d81",
-					"protocol": "http",
+					"raw": "{{URL}}posts/unanonymous/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"unanonymous",
-						"681d4de80f3700ffc7893d81"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -760,19 +822,13 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/unanonymous/681d4de80f3700ffc7893d81",
-					"protocol": "http",
+					"raw": "{{URL}}posts/unanonymous/681d4dd70f3700ffc7893d7f",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"unanonymous",
-						"681d4de80f3700ffc7893d81"
+						"681d4dd70f3700ffc7893d7f"
 					]
 				}
 			},
@@ -793,17 +849,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/me",
-					"protocol": "http",
+					"raw": "{{URL}}posts/me",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"me"
 					]
 				}
@@ -825,17 +875,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/me",
-					"protocol": "http",
+					"raw": "{{URL}}posts/me",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"me"
 					]
 				}
@@ -857,17 +901,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/profile/2",
-					"protocol": "http",
+					"raw": "{{URL}}posts/profile/2",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"profile",
 						"2"
 					]
@@ -890,24 +928,17 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/?page=2",
-					"protocol": "http",
+					"raw": "{{URL}}posts/?nameContains=AWS",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						""
 					],
 					"query": [
 						{
 							"key": "nameContains",
-							"value": "actualizado",
-							"disabled": true
+							"value": "AWS"
 						},
 						{
 							"key": "priceMax",
@@ -926,7 +957,8 @@
 						},
 						{
 							"key": "page",
-							"value": "2"
+							"value": "2",
+							"disabled": true
 						},
 						{
 							"key": "limit",
@@ -953,17 +985,11 @@
 					}
 				],
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/",
-					"protocol": "http",
+					"raw": "{{URL}}posts/",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						""
 					],
 					"query": [
@@ -1026,17 +1052,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/rate/681dba859cb2736bec8f6e1e",
-					"protocol": "http",
+					"raw": "{{URL}}posts/rate/681dba859cb2736bec8f6e1e",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"rate",
 						"681dba859cb2736bec8f6e1e"
 					],
@@ -1100,17 +1120,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://44.220.134.27:8001/posts/rate/681dba859cb2736bec8f6e1e",
-					"protocol": "http",
+					"raw": "{{URL}}posts/rate/681dba859cb2736bec8f6e1e",
 					"host": [
-						"44",
-						"220",
-						"134",
-						"27"
+						"{{URL}}posts"
 					],
-					"port": "8001",
 					"path": [
-						"posts",
 						"rate",
 						"681dba859cb2736bec8f6e1e"
 					],
@@ -1149,6 +1163,13 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://54.163.23.2:8001/",
+			"type": "default"
 		}
 	]
 }
